@@ -1,246 +1,144 @@
-import Head from 'next/head'
-import clientPromise from '../lib/mongodb'
+import dbConnect from "../lib/mongodb";
+import catagorydb from "./api/models/catagoryModel";
+import Head from "next/head";
+import { useState } from "react";
+import Banner from "../components/Banner";
+import Header from "../components/Header";
+import UpperMBody from "../components/UpperMBody";
+import MiddleMBody from "../components/MiddleMBody";
+import MiddleBanner from "../components/MiddleBanner";
+import LowerMBody from "../components/LowerMBody";
+import BankOffer from "../components/BankOffer";
+import Bottom from "../components/Bottom";
 
-export default function Home({ isConnected }) {
+export default function Home({ tt }) {
+  //const [locModal, setlocModal] = useState(false);
+  //const handleLocModal = () => {
+  //  console.log("here im");
+  //  setlocModal((prev) => !prev);
+  //};
+
   return (
-    <div className="container">
+    <div className="block absolute w-full">
       <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>Blinkit</title>
       </Head>
-
       <main>
-        <h1 className="title">
-          Welcome to <a href="https://nextjs.org">Next.js with MongoDB!</a>
-        </h1>
+        <Header />
 
-        {isConnected ? (
-          <h2 className="subtitle">You are connected to MongoDB</h2>
-        ) : (
-          <h2 className="subtitle">
-            You are NOT connected to MongoDB. Check the <code>README.md</code>{' '}
-            for instructions.
-          </h2>
-        )}
-
-        <p className="description">
-          Get started by editing <code>pages/index.js</code>
-        </p>
-
-        <div className="grid">
-          <a href="https://nextjs.org/docs" className="card">
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className="card">
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className="card"
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="card"
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+        <div className="flex flex-col items-center content-center justify-center">
+          <Banner />
+          <UpperMBody data={tt} />
+          <UpperMBody data={tt} />
+          <MiddleMBody />
+          <MiddleBanner />
+          <LowerMBody />
+          <LowerMBody />
+          <BankOffer />
+          <LowerMBody />
+          <LowerMBody />
+          <LowerMBody />
+          <Bottom />
         </div>
       </main>
-
-      <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className="logo" />
-        </a>
-      </footer>
-
-      <style jsx>{`
-        .container {
-          min-height: 100vh;
-          padding: 0 0.5rem;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-
-        main {
-          padding: 5rem 0;
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-
-        footer {
-          width: 100%;
-          height: 100px;
-          border-top: 1px solid #eaeaea;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        footer img {
-          margin-left: 0.5rem;
-        }
-
-        footer a {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        a {
-          color: inherit;
-          text-decoration: none;
-        }
-
-        .title a {
-          color: #0070f3;
-          text-decoration: none;
-        }
-
-        .title a:hover,
-        .title a:focus,
-        .title a:active {
-          text-decoration: underline;
-        }
-
-        .title {
-          margin: 0;
-          line-height: 1.15;
-          font-size: 4rem;
-        }
-
-        .title,
-        .description {
-          text-align: center;
-        }
-
-        .subtitle {
-          font-size: 2rem;
-        }
-
-        .description {
-          line-height: 1.5;
-          font-size: 1.5rem;
-        }
-
-        code {
-          background: #fafafa;
-          border-radius: 5px;
-          padding: 0.75rem;
-          font-size: 1.1rem;
-          font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-            DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-        }
-
-        .grid {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-wrap: wrap;
-
-          max-width: 800px;
-          margin-top: 3rem;
-        }
-
-        .card {
-          margin: 1rem;
-          flex-basis: 45%;
-          padding: 1.5rem;
-          text-align: left;
-          color: inherit;
-          text-decoration: none;
-          border: 1px solid #eaeaea;
-          border-radius: 10px;
-          transition: color 0.15s ease, border-color 0.15s ease;
-        }
-
-        .card:hover,
-        .card:focus,
-        .card:active {
-          color: #0070f3;
-          border-color: #0070f3;
-        }
-
-        .card h3 {
-          margin: 0 0 1rem 0;
-          font-size: 1.5rem;
-        }
-
-        .card p {
-          margin: 0;
-          font-size: 1.25rem;
-          line-height: 1.5;
-        }
-
-        .logo {
-          height: 1em;
-        }
-
-        @media (max-width: 600px) {
-          .grid {
-            width: 100%;
-            flex-direction: column;
-          }
-        }
-      `}</style>
-
-      <style jsx global>{`
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-            sans-serif;
-        }
-
-        * {
-          box-sizing: border-box;
-        }
-      `}</style>
     </div>
-  )
+  );
 }
 
-export async function getServerSideProps(context) {
+export async function getStaticProps() {
   try {
-    await clientPromise
-    // `await clientPromise` will use the default database passed in the MONGODB_URI
-    // However you can use another database (e.g. myDatabase) by replacing the `await clientPromise` with the folloing code:
-    //
-    // `const client = await clientPromise`
-    // `const db = client.db("myDatabase")`
-    //
-    // Then you can execute queries against your database like so:
-    // db.find({}) or any of the MongoDB Node Driver commands
+    await dbConnect();
+    const data = await catagorydb.find();
 
     return {
-      props: { isConnected: true },
-    }
-  } catch (e) {
-    console.error(e)
+      props: {
+        isConnected: true,
+        tt: await JSON.parse(JSON.stringify(data)),
+      },
+    };
+  } catch (error) {
+    console.log(error);
+
     return {
-      props: { isConnected: false },
-    }
+      props: {
+        isConnected: false,
+      },
+    };
   }
 }
+//
+//export async function getServerSideProps(context) {
+//  try {
+//    await dbConnect();
+//    //const userData = await userDatadb.find();
+//    //const main = {
+//    //  data: JSON.parse(JSON.stringify(userData)),
+//    //};
+//    return {
+//      props: { isConnected: true },
+//    };
+//  } catch (e) {
+//    console.error(e);
+//    return {
+//      props: { isConnected: false },
+//    };
+//  }
+//}
+// <Image
+//   src={`data:image/png;base64,${dataa.data[0].profilePic.data}`}
+//   width="200px"
+//   height="200px"
+// />;
+//const hc = () => {
+//  const d = { name: "name" };
+//  axios
+//    .post("http://localhost:3000/api", d)
+//    .then((res) => console.log(res))
+//    .catch((err) => console.log(err));
+//};
+//console.log(dataa);
+//dataa.data[0].profilePic.data = new Buffer.from(
+//  dataa.data[0].profilePic.data
+//).toString("base64");
+//<div
+//  className={
+//    locModal
+//      ? "block absolute ml-52  w-96 h-32 flex flex-col justify-evenly items-start z-40 border-4 bg-white"
+//      : "hidden"
+//  }
+//>
+//  <p className="text-xs text-zinc-500 ml-4">
+//    welcome to <span className="text-xs text-black">blinkit</span>
+//  </p>
+//  <div className="flex justify-evenly ml-2 w-64 items-center">
+//    <svg
+//      xmlns="http://www.w3.org/2000/svg"
+//      className="h-7 w-9 m-2"
+//      fill="none"
+//      viewBox="0 0 24 24"
+//      stroke="currentColor"
+//      strokeWidth={2}
+//    >
+//      <path
+//        strokeLinecap="round"
+//        strokeLinejoin="round"
+//        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+//      />
+//      <path
+//        strokeLinecap="round"
+//        strokeLinejoin="round"
+//        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+//      />
+//    </svg>
+//    <p className="font-serif w-48 font-thin text-xs">
+//      Please provide your delivery location to see products at nearby store
+//    </p>
+//  </div>
+//  <div className="flex justify-around  w-full items-center">
+//    <button className="bg-lime-600 text-xs p-1 text-white">
+//      Detect my location
+//    </button>
+//    <p className="text-xs p-1 rounded-full">OR</p>
+//    <button className="border-2 text-xs  p-1">Type your society/colony/</button>
+//  </div>
+//</div>;
