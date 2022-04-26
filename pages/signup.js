@@ -35,36 +35,60 @@ const Signup = () => {
   };
   console.log(uInfo);
   return (
-    <div>
+    <div className="flex justify-center items-center">
       <form
         action="/api/adduser"
         encType="multipart/form-data"
+        className="border-4 mt-20 space-y-4 p-4"
         method="POST"
         onSubmit={handleaccount}
       >
-        <input
-          type="text"
-          placeholder="username"
-          value={uInfo.username}
-          onChange={(e) => chgUserData(e)}
-          name="username"
-        />
-        <input
-          type="password"
-          placeholder="enter your password"
-          name="password"
-          value={uInfo.password}
-          onChange={(e) => chgUserData(e)}
-        />
-        <input
-          type="password"
-          placeholder="confirm password"
-          name="confirmPassword"
-          value={uInfo.confirmPassword}
-          onChange={(e) => chgUserData(e)}
-        />
-        <input type="file" name="img" onChange={oo} />
-        <button type="submit">boooom !!!</button>
+        <div className="flex flex-col">
+          <label className="text-xs ">username</label>
+          <input
+            type="text"
+            placeholder="username"
+            className="border-2 p-0.5 text-sm"
+            value={uInfo.username}
+            onChange={(e) => chgUserData(e)}
+            name="username"
+          />
+        </div>
+        <div className="flex flex-col">
+          <label className="text-xs ">choose image</label>
+          <input
+            type="file"
+            name="img"
+            className="border-2 p-0.5 text-sm"
+            onChange={oo}
+          />
+        </div>
+        <div className="flex flex-col">
+          <label className="text-xs ">password</label>
+          <input
+            type="password"
+            placeholder="enter your password"
+            name="password"
+            className="border-2 p-0.5 text-sm"
+            value={uInfo.password}
+            onChange={(e) => chgUserData(e)}
+          />
+        </div>
+        <div className="flex flex-col">
+          <label className="text-xs ">confirm password</label>
+          <input
+            type="password"
+            placeholder="confirm password"
+            name="confirmPassword"
+            className="border-2 p-0.5 text-sm"
+            value={uInfo.confirmPassword}
+            onChange={(e) => chgUserData(e)}
+          />
+        </div>
+
+        <button className="border-2 " type="submit">
+          boooom !!!
+        </button>
       </form>
     </div>
   );

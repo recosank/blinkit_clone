@@ -58,7 +58,7 @@ const py = async (req, res) => {
         if (!hasedPasswd)
           return res.status(400).json({ message: "invalid credentials" });
       }
-      const token = jwt.sign({ name: user.username, id: user._id }, SECRET, {
+      const token = jwt.sign({ name: user.username, _id: user._id }, SECRET, {
         expiresIn: "8h",
       });
       const newuser = {

@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import cho from "../public/Images/cho.jpg";
+import tango from "../public/Images/tango.jpg";
 
 const MiddleBanner = () => {
   return (
@@ -19,7 +19,7 @@ const MiddleBanner = () => {
           d="M15 19l-7-7 7-7"
         />
       </svg>
-      <Image src={cho} width={970} height={450} className="object-cover" />
+      <Image src={tango} width={970} height={450} className="object-cover" />
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="h-7 w-7 p-1.5 text-slate-50 rounded-full  bg-gray-400"

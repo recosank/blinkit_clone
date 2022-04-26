@@ -1,13 +1,13 @@
 import React from "react";
 import LowerMBodyCard from "./LowerMBodyCard";
 
-const LowerMBody = () => {
+const LowerMBody = ({ title, data, titleTwo }) => {
   return (
     <div className="grid grid-rows-6 w-2/3 h-72 mt-9">
       <div className="grid grid-cols-2 place-items-end">
         <div className="grid-rows-2 place-self-start">
-          <p className="text-sm font-bold">fruits & vegetables</p>
-          <p className="text-xs text-slate-400">eat fresh, stay healthy</p>
+          <p className="text-sm font-bold">{title}</p>
+          <p className="text-xs text-slate-400">{titleTwo}</p>
         </div>
         <div className="grid mb-3 grid-cols-2  place-items-start">
           <div className="grid grid-cols-2 place-self-center place-items-center">
@@ -60,14 +60,10 @@ const LowerMBody = () => {
         </div>
       </div>
       <div className="row-span-5 gap-x-4 grid grid-cols-7">
-        <LowerMBodyCard />
-        <LowerMBodyCard />
-        <LowerMBodyCard />
-        <LowerMBodyCard />
-
-        <LowerMBodyCard />
-        <LowerMBodyCard />
-        <LowerMBodyCard />
+        {data.map((val, ind) => {
+          val.cover.data = new Buffer.from(val.cover.data).toString("base64");
+          return <LowerMBodyCard val={val} key={ind} />;
+        })}
       </div>
     </div>
   );

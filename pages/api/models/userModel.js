@@ -7,6 +7,7 @@ const userSchema = mongoose.Schema(
     profilePic: {
       data: Buffer,
     },
+    cart: [],
   },
   { timestamps: true }
 );
