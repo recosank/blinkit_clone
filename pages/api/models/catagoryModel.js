@@ -6,6 +6,7 @@ const CatagorySchema = mongoose.Schema(
     cover: {
       data: Buffer,
     },
+    subCato: [],
   },
   { timestamps: true }
 );

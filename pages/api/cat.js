@@ -19,8 +19,9 @@ export default async (req, res) => {
       const formp = new formidable.IncomingForm();
       formp.parse(req, async (err, fields, files) => {
         // if (req.headers.referer === "http://localhost:3000/") {
-        const { title } = fields;
-        console.log(fields);
+
+        const { title, subCato } = fields;
+        console.log(subCato);
         let oldPath = files.cover.filepath;
 
         let newPath =
@@ -36,6 +37,7 @@ export default async (req, res) => {
           cover: {
             data: rawData,
           },
+          subCato,
         });
         res.status(200).json("done");
       });
