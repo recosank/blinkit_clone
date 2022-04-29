@@ -82,6 +82,7 @@ export async function getServerSideProps(context) {
     const fruitData = await itemsdb
       .find({ cato: "fruits & vegetables" })
       .exec();
+
     const chemistData = await itemsdb.find({ cato: "chemist store" }).exec();
 
     return {

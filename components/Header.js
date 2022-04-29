@@ -3,19 +3,32 @@ import Blinkit_logo from "../public/Images/Blinkit_logo.png";
 import { useState } from "react";
 import Link from "next/link";
 import { useSelector } from "react-redux";
+import CartHeader from "./CartHeader";
 
 const Header = ({ user }) => {
   const { tot, cart } = useSelector((state) => state.userReducer);
   const cartLen = cart.length;
   const [loctModal, setlocModal] = useState(false);
   const [userModal, setuserModal] = useState(false);
+  const [openCart, setopenCart] = useState(false);
   const handleUserModal = (e) => {
     e.preventDefault();
     setuserModal((prev) => !prev);
   };
+
   const handleLocModal = (e) => {
     e.preventDefault();
     setlocModal((prev) => !prev);
+  };
+  const cartOpen = (e) => {
+    e.preventDefault();
+    console.log("open");
+    setopenCart(true);
+  };
+  const cartClose = (e) => {
+    e.preventDefault();
+    console.log("close");
+    setopenCart(false);
   };
   return (
     <div className="flex justify-around bg-yellow-400 border-b-2 w-full pl-2 h-12 border-black-600 items-center">
@@ -182,7 +195,10 @@ const Header = ({ user }) => {
         </div>
       </div>
 
-      <div className="flex justify-center items-center bg-lime-600 rounded-lg p-2 hover:bg-lime-500">
+      <div
+        className="flex justify-center items-center bg-lime-600 rounded-lg p-2 hover:bg-lime-500"
+        onClick={cartOpen}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-3 w-6 text-white"
@@ -206,6 +222,14 @@ const Header = ({ user }) => {
         </p>
         <p className="text-xs pl-1 text-white">{tot ? `${tot}$` : "my cart"}</p>
       </div>
+      {openCart && (
+        <div
+          className={`h-screen w-1/4 right-0  top-1 border absolute flex flex-col bg-white z-30`}
+        >
+          <CartHeader items={cart} close={cartClose} tot={tot} />
+        </div>
+      )}
+
       <div className="flex items-center ">
         <svg
           xmlns="http://www.w3.org/2000/svg"

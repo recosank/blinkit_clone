@@ -61,8 +61,8 @@ const LowerMBody = ({ title, data, titleTwo }) => {
       </div>
       <div className="row-span-5 gap-x-4 grid grid-cols-7">
         {data.map((val, ind) => {
-          val.cover.data = new Buffer.from(val.cover.data).toString("base64");
-          return <LowerMBodyCard val={val} key={ind} />;
+          const i = new Buffer.from(val.cover.data).toString("base64");
+          return <LowerMBodyCard val={val} key={ind} immg={i} />;
         })}
       </div>
     </div>

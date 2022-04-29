@@ -1,12 +1,11 @@
 import Image from "next/image";
 import straw from "../public/Images/straw.jpg";
 
-const UpperMBodyCard = ({ val }) => {
-  console.log("whyyyyyyyyyyy");
+const UpperMBodyCard = ({ val, immg }) => {
   return (
     <div className="h-32 rounded-lg w-16 ">
       <Image
-        src={`data:image/png;base64,${val.cover.data}`}
+        src={`data:image/png;base64,${immg}`}
         className="object-contain"
         width={110}
         height={120}

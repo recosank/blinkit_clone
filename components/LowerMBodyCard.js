@@ -1,35 +1,35 @@
 import Image from "next/image";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { nameaction } from "../redux/actions";
+import { addCartaction, remCartaction } from "../redux/actions";
 
-const LowerMBodyCard = ({ val }) => {
+const LowerMBodyCard = ({ val, immg }) => {
   const [first, setfirst] = useState(0);
   const dispatch = useDispatch();
   const addCart = (e) => {
     e.preventDefault();
     setfirst((prev) => prev + 1);
+    val._id += first + 1;
+    dispatch(addCartaction(val));
   };
   const subCart = (e) => {
     e.preventDefault();
     setfirst((prev) => prev - 1);
+
+    val._id.slice(-1) != first && (val._id = val._id.slice(0, -1));
+    dispatch(remCartaction(val));
   };
   const handleCart = (e) => {
     e.preventDefault();
     setfirst(1);
-    const cartData = {
-      _id: val._id,
-      name: val.name,
-      amount: val.amount,
-      newPrice: val.newPrice,
-    };
-    dispatch(nameaction(cartData));
+
+    dispatch(addCartaction(val));
   };
   return (
     <div className="flex flex-col ">
       <div className="border-2 flex rounded-md">
         <Image
-          src={`data:image/png;base64,${val.cover.data}`}
+          src={`data:image/png;base64,${immg}`}
           width={150}
           height={140}
           className="object-contain absolute z-0"
