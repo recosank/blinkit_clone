@@ -85,3 +85,10 @@ export default async (req, res) => {
     }
   }
 };
+
+//db.survey.update(
+//  // select your doc in moongo
+//  {}, // your query, usually match by _id
+//  { $pull: { results: { $elemMatch: { score: 8, item: "B" } } } }, // item(s) to match from array you want to pull/remove
+//  { multi: true } // set this to true if you want to remove multiple elements.
+//);

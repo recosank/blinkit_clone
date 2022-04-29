@@ -4,6 +4,7 @@ const nextConfig = {
     ROOT: __dirname,
   },
   reactStrictMode: true,
+  staticPageGenerationTimeout: "60",
 };
 
 module.exports = nextConfig;

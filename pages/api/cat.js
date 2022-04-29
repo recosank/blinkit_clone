@@ -18,10 +18,12 @@ export default async (req, res) => {
       let cato;
       const formp = new formidable.IncomingForm();
       formp.parse(req, async (err, fields, files) => {
+        console.log(files);
+        console.log(fields);
         // if (req.headers.referer === "http://localhost:3000/") {
 
         const { title, subCato } = fields;
-        console.log(subCato);
+        const arr = subCato.split(",");
         let oldPath = files.cover.filepath;
 
         let newPath =
@@ -37,7 +39,7 @@ export default async (req, res) => {
           cover: {
             data: rawData,
           },
-          subCato,
+          subCato: arr,
         });
         res.status(200).json("done");
       });
