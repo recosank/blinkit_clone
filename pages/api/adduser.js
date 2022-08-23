@@ -6,6 +6,7 @@ import bcrypt from "bcryptjs";
 import formidable from "formidable";
 import path from "path";
 import fs from "fs";
+import { ConnectionPoolMonitoringEvent } from "mongodb";
 
 const SECRET =
   "asjkdfa5s4df658ar64f3a54f5425253456544@#%@%^%$^!#$%@#zbsdfbsdfbdsafgb3847tw4y8hgf";
@@ -31,16 +32,15 @@ const py = async (req, res) => {
         if (password !== confirmPassword) {
           return res.status(405).json("password dosen't natch");
         }
-
         let oldPath = files.img.filepath;
         let newPath =
           path.join(process.env.ROOT, "public") + "/" + files.img.newFilename;
-
         let rawData = fs.readFileSync(oldPath);
         fs.writeFile(newPath, rawData, function (err) {
           if (err) console.log(err);
         });
         const hasedPasswd = await bcrypt.hash(password, 12);
+        console.log(hasedPasswd);
         user = await userDatadb.create({
           username: username,
           password: hasedPasswd,

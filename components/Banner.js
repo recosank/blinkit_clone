@@ -1,11 +1,19 @@
 import React from "react";
-import pu from "../public/Images/pu.jpg";
+import pu from "../public/Images/pu.png";
 import Image from "next/image";
-//
+
 const Banner = () => {
   return (
-    <div className="flex mt-2 w-2/3 h-96">
-      <Image src={pu} className="z-0" width={1300} />
+    <div className="flex mt-2 w-2/3 h-96" style={{}}>
+      <Image
+        src={pu}
+        className="z-0"
+        width={1300}
+        style={{
+          background:
+            "linear-gradient(152deg, rgba(18,17,17,1) 32%, tranparent 91%); ",
+        }}
+      />
       <div className="absolute w-1/3 mt-24 ml-8 flex flex-col z-10">
         <p className="text-3xl font-mono leading-normal text-white">
           Don't miss our daily amazing deals.
@@ -23,10 +31,10 @@ const Banner = () => {
           <input
             type="text"
             className="text-xs rounded-md p-1 "
-            placeholder="enter your email address"
+            placeholder="enter your Email address"
           />
-          <button className="text-sm p-1 bg-yellow-500 text-zinc-700 rounded-r-md">
-            subscribe
+          <button className="text-sm p-1 px-2 hover:text-black hover:bg-yellow-400 bg-yellow-500 text-zinc-700 rounded-r-md">
+            Subscribe
           </button>
         </div>
       </div>

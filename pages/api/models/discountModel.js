@@ -1,16 +1,16 @@
 import mongoose from "mongoose";
 
-const CatagorySchema = mongoose.Schema(
+const DiscountSchema = mongoose.Schema(
   {
     title: String,
     cover: {
       data: Buffer,
     },
-    subCato: [],
+    cato: [],
     discount: Number,
   },
   { timestamps: true }
 );
 
-export default mongoose.models.catagorydb ||
-  mongoose.model("catagorydb", CatagorySchema);
+export default mongoose.models.discountdb ||
+  mongoose.model("discountdb", DiscountSchema);

@@ -10,6 +10,7 @@ export const addCartaction = (cartData) => async (dispatch) => {
 };
 export const remCartaction = (cartData) => async (dispatch) => {
   console.log(cartData);
+  console.log("remcart");
   const data = axios
     .put("http://localhost:3000/api/updateCart", cartData)
     .then((res) => console.log(res))

@@ -7,9 +7,9 @@ const ItemSchema = mongoose.Schema(
       data: Buffer,
     },
     amount: String,
-    oldPrice: Number,
-    newPrice: Number,
-    offNumber: String,
+    discount: Number,
+    price: Number,
+    brand: String,
     cato: String,
   },
   { timestamps: true }

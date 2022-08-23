@@ -3,7 +3,7 @@ import LowerMBodyCard from "./LowerMBodyCard";
 
 const LowerMBody = ({ title, data, titleTwo }) => {
   return (
-    <div className="grid grid-rows-6 w-2/3 h-72 mt-9">
+    <div className="grid grid-rows-6 w-2/3 ">
       <div className="grid grid-cols-2 place-items-end">
         <div className="grid-rows-2 place-self-start">
           <p className="text-sm font-bold">{title}</p>

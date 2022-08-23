@@ -5,7 +5,7 @@ import Image from "next/image";
 
 const CartHeader = ({ items, close, tot }) => {
   return (
-    <div className="flex flex-col items-center border h-full">
+    <div className="flex flex-col items-center  h-full">
       <div className="flex justify-between shadow-md p-2  w-full items-center">
         <p className="font-bold text-xl">My Cart</p>
         <svg
@@ -51,8 +51,8 @@ const CartHeader = ({ items, close, tot }) => {
               items.length > 5 && "overflow-y-scroll"
             } border-2`}
           >
-            {items.map((val) => {
-              return <CartCard val={val} />;
+            {items.map((val, ind) => {
+              return <CartCard val={val} key={ind} />;
             })}
           </div>
           <div className="bg-lime-500 p-5 z-50 h-26 w-full inset-x-0 bottom-0 border ">

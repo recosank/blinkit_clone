@@ -4,29 +4,30 @@ import { useSelector, useDispatch } from "react-redux";
 import { addCartaction, remCartaction } from "../redux/actions";
 
 const LowerMBodyCard = ({ val, immg }) => {
-  const [first, setfirst] = useState(0);
+  const { cart } = useSelector((state) => state.userReducer);
+  const cartInd = cart.findIndex((i) => i._id === val._id);
+  let init = cartInd >= 0 ? cart[cartInd].order : 0;
+  const [first, setfirst] = useState(init);
   const dispatch = useDispatch();
+  const percentage = (partialValue, totalValue) => {
+    const perc = (partialValue / 100) * totalValue;
+    return Number(perc).toFixed(2);
+  };
+  const disc = val.discount > 0 && percentage(val.discount, val.price);
   const addCart = (e) => {
     e.preventDefault();
     setfirst((prev) => prev + 1);
-    val._id += first + 1;
+    val.order = first + 1;
     dispatch(addCartaction(val));
   };
   const subCart = (e) => {
     e.preventDefault();
     setfirst((prev) => prev - 1);
-
-    val._id.slice(-1) != first && (val._id = val._id.slice(0, -1));
+    val.order -= 1;
     dispatch(remCartaction(val));
   };
-  const handleCart = (e) => {
-    e.preventDefault();
-    setfirst(1);
-
-    dispatch(addCartaction(val));
-  };
   return (
-    <div className="flex flex-col ">
+    <div className="flex flex-col mt-2">
       <div className="border-2 flex rounded-md">
         <Image
           src={`data:image/png;base64,${immg}`}
@@ -36,39 +37,45 @@ const LowerMBodyCard = ({ val, immg }) => {
         />
         <button
           className={
-            val.offNumber <= 0
+            val.discount <= 0
               ? "hidden"
               : "absolute z-10 w-9 text-xs bg-lime-400 rounded-tl-md"
           }
         >
-          {val.offNumber}% OFF
+          {val.discount}% OFF
         </button>
       </div>
-      <div className="flex flex-col ml-2 justify-between flex-grow pb-3 content-around">
+      <div className="flex flex-col ml-2 justify-between flex-grow pb-3 content-around space-y-2">
         <p className="text-xs text-slate-600">fruits</p>
         <p className="text-sm">{val.name}</p>
         <p className="text-xs text-slate-600">{val.amount}</p>
         <p className="text-xs text-slate-600">
-          By <span className="text-xs text-lime-800">Mr.food </span>
+          By <span className="text-xs text-lime-800">{val.brand} </span>
         </p>
         <p className="text-sm text-lime-700">
-          ${val.newPrice}{" "}
-          <span
-            className={
-              val.oldPrice <= 0
-                ? "hidden"
-                : "text-xs text-slate-600 line-through"
-            }
-          >
-            ${val.oldPrice}
-          </span>
+          {disc > 0 ? (
+            <>
+              ${(val.price - disc).toFixed(2)}
+              <span
+                className={
+                  val.price <= 0
+                    ? "hidden"
+                    : "text-xs text-slate-600 p-1 line-through"
+                }
+              >
+                ${val.price}
+              </span>
+            </>
+          ) : (
+            <>${val.price}</>
+          )}
         </p>
       </div>
       <div>
         {first === 0 ? (
           <div
             className="flex justify-center bg-lime-500 p-1 items-center"
-            onClick={(e) => handleCart(e)}
+            onClick={(e) => addCart(e)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -102,7 +109,7 @@ const LowerMBodyCard = ({ val, immg }) => {
                 strokeLinejoin="round"
                 d="M12 4v16m8-8H4"
               />
-            </svg>{" "}
+            </svg>
             <p className="text-sm">{first}</p>
             <svg
               xmlns="http://www.w3.org/2000/svg"

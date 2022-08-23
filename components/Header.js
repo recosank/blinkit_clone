@@ -22,22 +22,20 @@ const Header = ({ user }) => {
   };
   const cartOpen = (e) => {
     e.preventDefault();
-    console.log("open");
     setopenCart(true);
   };
   const cartClose = (e) => {
     e.preventDefault();
-    console.log("close");
     setopenCart(false);
   };
   return (
-    <div className="flex justify-around bg-yellow-400 border-b-2 w-full pl-2 h-12 border-black-600 items-center">
+    <div className="flex justify-around bg-yellow-400 border-b-2 w-full pl-5 h-14 border-black-600 items-center">
       <Image src={Blinkit_logo} width={120} objectFit="contain" />
       <div className="flex justify-center items-center">
         <div
           className={
             loctModal
-              ? "block absolute ml-52 mt-48 w-96 h-32 flex flex-col justify-evenly items-start z-40 border-4 bg-white"
+              ? "block absolute ml-52 mt-48 w-96 h-36 flex flex-col justify-evenly items-start z-40 border-4 bg-white"
               : "hidden"
           }
         >
@@ -74,9 +72,10 @@ const Header = ({ user }) => {
               Detect my location
             </button>
             <p className="text-xs p-1 rounded-full">OR</p>
-            <button className="border-2 text-xs  p-1">
-              Type your society/colony/
-            </button>
+            <input
+              className="border border-black text-xs p-1"
+              placeholder="Type your society/colony/"
+            />
           </div>
         </div>
         <svg
@@ -115,7 +114,7 @@ const Header = ({ user }) => {
           />
         </svg>
       </div>
-      <div className="flex border-2 border-black-600 rounded-md h-8 bg-white items-center w-1/2">
+      <div className="flex border-2 border-black-600 rounded-lg h-9 bg-white items-center w-1/2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-7 p-1 pr-2 w-7 rounded-lg text-gray-500 hover:text-black"
@@ -133,7 +132,7 @@ const Header = ({ user }) => {
         <input
           className="pl-2 w-5/6 text-sm active:outline-none"
           type="text"
-          placeholder="search stuff"
+          placeholder="search"
         />
       </div>
 
@@ -183,13 +182,23 @@ const Header = ({ user }) => {
         <div
           className={
             userModal
-              ? "block absolute h-36 ml-2 p-4 flex flex-col justify-start z-50 border-2 bg-white"
+              ? "absolute h-36 ml-2 w-24 flex flex-col justify-start pl-5 pt-3 space-y-2 font-medium rounded-lg z-50 bg-yellow-200"
               : "hidden"
           }
         >
-          <p className="text-xs text-md tracking-wide text-black text-bold">
+          <p className="text-sm text-md tracking-wide text-black">
             <Link href="/login">
-              <a className=" ">logout</a>
+              <a className=" ">Profile</a>
+            </Link>
+          </p>
+          <p className="text-sm text-md tracking-wide text-black">
+            <Link href="/login">
+              <a className=" ">Settings</a>
+            </Link>
+          </p>
+          <p className="text-sm text-md tracking-wide text-black">
+            <Link href="/login">
+              <a className=" ">Logout</a>
             </Link>
           </p>
         </div>
@@ -252,13 +261,3 @@ const Header = ({ user }) => {
 };
 
 export default Header;
-//<svg
-//  xmlns="http://www.w3.org/2000/svg"
-//  className="h-6 w-6"
-//  fill="none"
-//  viewBox="0 0 24 24"
-//  stroke="currentColor"
-//  strokeWidth={2}
-//>
-//  <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
-//</svg>;

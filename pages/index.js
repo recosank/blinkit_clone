@@ -1,5 +1,6 @@
 import dbConnect from "../lib/mongodb";
 import catagorydb from "./api/models/catagoryModel";
+import discountdb from "./api/models/discountModel";
 import { useEffect } from "react";
 import itemsdb from "./api/models/itemModel";
 import Head from "next/head";
@@ -16,7 +17,7 @@ import userModel from "./api/models/userModel";
 import { useDispatch } from "react-redux";
 import { cartPaction } from "../redux/actions";
 
-export default function Home({ tt, fData, cData, uInfo }) {
+export default function Home({ catogData, fData, cData, uInfo, tDiscount }) {
   const dispatch = useDispatch();
   useEffect(() => {
     uInfo ? dispatch(cartPaction(uInfo.cart)) : null;
@@ -29,12 +30,11 @@ export default function Home({ tt, fData, cData, uInfo }) {
       </Head>
       <main>
         <Header user={uInfo} />
-        <div className="flex flex-col items-center content-center justify-center ">
+        <div className="flex flex-col items-center content-center justify-center space-y-9">
           <Banner />
-          <MiddleMBody />
-          <UpperMBody data={tt} />
-          <UpperMBody data={tt} />
-
+          <MiddleMBody data={tDiscount} />
+          <UpperMBody data={catogData} />
+          <UpperMBody data={catogData} />
           <MiddleBanner />
           <LowerMBody
             title="fruits & vegetables"
@@ -71,7 +71,7 @@ export default function Home({ tt, fData, cData, uInfo }) {
 
 export async function getServerSideProps(context) {
   try {
-    await auth(context.req, context.res);
+    auth(context.req, context.res);
 
     const { userId } = context.req;
     await dbConnect();
@@ -84,13 +84,15 @@ export async function getServerSideProps(context) {
       .exec();
 
     const chemistData = await itemsdb.find({ cato: "chemist store" }).exec();
+    const todayDiscount = await discountdb.find();
 
     return {
       props: {
         isConnected: true,
-        tt: await JSON.parse(JSON.stringify(data)),
+        catogData: await JSON.parse(JSON.stringify(data)),
         fData: await JSON.parse(JSON.stringify(fruitData)),
         cData: await JSON.parse(JSON.stringify(chemistData)),
+        tDiscount: await JSON.parse(JSON.stringify(todayDiscount)),
         uInfo: await JSON.parse(JSON.stringify(userInfo)),
       },
     };
