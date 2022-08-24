@@ -5,10 +5,11 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addCartaction, remCartaction } from "../redux/actions";
 
-const CartCard = ({ val }) => {
-  const { cart } = useSelector((state) => state.userReducer);
-  const cartInd = cart.findIndex((i) => i._id === val._id);
-  let init = cartInd >= 0 ? cart[cartInd].order : 0;
+const CartCard = ({ val, immg }) => {
+  //const { cart } = useSelector((state) => state.userReducer);
+  //const cartInd = cart.findIndex((i) => i._id === val._id);
+  //let init = cartInd >= 0 ? cart[cartInd].order : 0;
+  let init = val ? val.order : 0;
   const [first, setfirst] = useState(init);
   const dispatch = useDispatch();
   const addCart = (e) => {
@@ -24,28 +25,30 @@ const CartCard = ({ val }) => {
     dispatch(remCartaction(val));
   };
   return (
-    <div className="flex border">
+    <div className="flex">
       <div>
         <Image
-          src={straw}
+          src={`data:image/png;base64,${immg}`}
           width="100"
           height="100"
           className="object-contain"
         />
       </div>
-      <div className="flex flex-col p-2 border flex-grow justify-around items-start">
+      <div className="flex flex-col p-2 flex-grow justify-around items-start">
         <p className="text-gray-600 text-sm">{val.name}</p>
         <p className="text-xs text-gray-400">{val.amount}</p>
-        <div className="flex justify-between items-center border">
+        <div className="flex justify-between w-5/6 items-center">
           <p className="text-sm">
-            {val.price}
-            <span className="text-xs text-slate-400">{val.price}</span>
+            {val.discountPrice.toFixed(2)}
+            <span className="text-xs ml-1 text-slate-400 line-through">
+              {val.price}
+            </span>
           </p>
 
-          <div>
+          <div className="w-1/3">
             {first === 0 ? (
               <div
-                className="flex justify-center bg-lime-500 p-1 items-center"
+                className="flex justify-center rounded-md bg-lime-500 p-1 items-center"
                 onClick={(e) => addCart(e)}
               >
                 <svg
@@ -65,7 +68,7 @@ const CartCard = ({ val }) => {
                 <button className="text-sm">Add to cart</button>{" "}
               </div>
             ) : (
-              <div className="flex justify-around bg-yellow-300 p-1 items-center">
+              <div className="flex justify-around bg-yellow-300 py-1 items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-4 w-4"

@@ -229,7 +229,9 @@ const Header = ({ user }) => {
         >
           {cartLen ? `${cartLen} items` : null}
         </p>
-        <p className="text-xs pl-1 text-white">{tot ? `${tot}$` : "my cart"}</p>
+        <p className="text-xs pl-1 text-white">
+          {tot ? `${tot.toFixed(2)}$` : "my cart"}
+        </p>
       </div>
       {openCart && (
         <div

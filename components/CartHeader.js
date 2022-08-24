@@ -5,7 +5,7 @@ import Image from "next/image";
 
 const CartHeader = ({ items, close, tot }) => {
   return (
-    <div className="flex flex-col items-center  h-full">
+    <div className="flex flex-col items-center  h-screen">
       <div className="flex justify-between shadow-md p-2  w-full items-center">
         <p className="font-bold text-xl">My Cart</p>
         <svg
@@ -45,18 +45,23 @@ const CartHeader = ({ items, close, tot }) => {
       )}
 
       {items.length > 0 && (
-        <div className="w-full h-full border-2 flex flex-col justify-between">
+        <div
+          className="w-full flex flex-col justify-between"
+          style={{ height: "95%" }}
+        >
           <div
-            className={`h-5/6 ${
+            className={`${
               items.length > 5 && "overflow-y-scroll"
-            } border-2`}
+            } border-2 space-y-3`}
+            style={{ height: "97%" }}
           >
             {items.map((val, ind) => {
-              return <CartCard val={val} key={ind} />;
+              const i = new Buffer.from(val.cover.data).toString("base64");
+              return <CartCard val={val} immg={i} key={ind} />;
             })}
           </div>
-          <div className="bg-lime-500 p-5 z-50 h-26 w-full inset-x-0 bottom-0 border ">
-            <button className="">process payment of {tot}</button>
+          <div className="bg-lime-500 p-5 z-50 w-full">
+            <button className="">process payment of {tot.toFixed(2)}</button>
           </div>
         </div>
       )}

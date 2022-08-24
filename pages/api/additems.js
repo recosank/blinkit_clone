@@ -18,17 +18,11 @@ export default async (req, res) => {
       let item;
       const formp = new formidable.IncomingForm();
       formp.parse(req, async (err, fields, files) => {
-        // if (req.headers.referer === "http://localhost:3000/") {
-        const { name, amount, newPrice, oldPrice, offNumber, cato } = fields;
-        console.log(fields);
-        console.log(files);
+        const { name, amount, price, discount, brand, cato } = fields;
         let oldPath = files.cover.filepath;
-
         let newPath =
           path.join(process.env.ROOT, "public") + "/" + files.cover.newFilename;
-
         let rawData = fs.readFileSync(oldPath);
-
         fs.writeFile(newPath, rawData, function (err) {
           if (err) console.log(err);
         });
@@ -38,18 +32,14 @@ export default async (req, res) => {
             data: rawData,
           },
           amount: amount,
-          newPrice: newPrice,
-          oldPrice: oldPrice,
-          offNumber,
+          price: price,
+          brand: brand,
+          discount,
           cato,
         });
         res.status(200).json("done");
       });
     } catch (error) {
-      //} else {
-      //    res.status(404).json('not allowed to post')
-      //}
-
       console.log(error);
     }
   } else {

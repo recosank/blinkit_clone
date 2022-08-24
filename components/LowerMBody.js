@@ -1,7 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import LowerMBodyCard from "./LowerMBodyCard";
 
 const LowerMBody = ({ title, data, titleTwo }) => {
+  const [startValue, setstartValue] = useState(0);
+  const [endValue, setendValue] = useState(7);
+  const resetState = () => {
+    setendValue(7);
+    setstartValue(0);
+  };
+  const handleState = (exp) => {
+    if (exp === "fwd") {
+      setstartValue((p) => p + 7);
+      setendValue((p) => p + 7);
+    } else {
+      setstartValue((p) => p - 7);
+      setendValue((p) => p - 7);
+    }
+  };
+  const handleBwd = () => {
+    startValue > 0 && handleState("bwd");
+  };
+  const handleFwd = () => {
+    endValue >= data.length ? resetState() : handleState("fwd");
+  };
   return (
     <div className="grid grid-rows-6 w-2/3 ">
       <div className="grid grid-cols-2 place-items-end">
@@ -35,6 +56,7 @@ const LowerMBody = ({ title, data, titleTwo }) => {
               viewBox="0 0 24 24"
               stroke="currentColor"
               strokeWidth={2}
+              onClick={handleBwd}
             >
               <path
                 strokeLinecap="round"
@@ -49,6 +71,7 @@ const LowerMBody = ({ title, data, titleTwo }) => {
               viewBox="0 0 24 24"
               stroke="currentColor"
               strokeWidth={2}
+              onClick={handleFwd}
             >
               <path
                 strokeLinecap="round"
@@ -60,7 +83,7 @@ const LowerMBody = ({ title, data, titleTwo }) => {
         </div>
       </div>
       <div className="row-span-5 gap-x-4 grid grid-cols-7">
-        {data.map((val, ind) => {
+        {data.slice(startValue, endValue).map((val, ind) => {
           const i = new Buffer.from(val.cover.data).toString("base64");
           return <LowerMBodyCard val={val} key={ind} immg={i} />;
         })}

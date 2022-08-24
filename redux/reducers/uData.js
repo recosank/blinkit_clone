@@ -7,7 +7,7 @@ const userReducer = (state = init, { type, payload }) => {
   switch (type) {
     case "populateCart":
       let price = 0;
-      payload.map((val) => (price = price + parseInt(val.newPrice)));
+      payload.map((val) => (price = price + parseInt(val.discountPrice)));
       return {
         cart: payload,
         tot: price,
@@ -18,11 +18,11 @@ const userReducer = (state = init, { type, payload }) => {
         return {
           ...state,
           cart: [...state.cart, payload],
-          tot: state.tot + payload.price,
+          tot: state.tot + payload.discountPrice,
         };
       } else {
         state.cart[ind].order = payload.order;
-        return { ...state };
+        return { ...state, tot: state.tot + payload.discountPrice };
       }
 
     case "remCart":
@@ -31,11 +31,11 @@ const userReducer = (state = init, { type, payload }) => {
         return {
           ...state,
           cart: [...state.cart.slice(0, data), ...state.cart.slice(data + 1)],
-          tot: state.tot - payload.newPrice,
+          tot: state.tot - payload.discountPrice,
         };
       } else {
         state.cart[data].order = payload.order;
-        return { ...state };
+        return { ...state, tot: state.tot - payload.discountPrice };
       }
 
     default:

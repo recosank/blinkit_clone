@@ -1,10 +1,10 @@
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addCartaction, remCartaction } from "../redux/actions";
 
 const LowerMBodyCard = ({ val, immg }) => {
-  const { cart } = useSelector((state) => state.userReducer);
+  let { cart } = useSelector((state) => state.userReducer);
   const cartInd = cart.findIndex((i) => i._id === val._id);
   let init = cartInd >= 0 ? cart[cartInd].order : 0;
   const [first, setfirst] = useState(init);
@@ -14,6 +14,7 @@ const LowerMBodyCard = ({ val, immg }) => {
     return Number(perc).toFixed(2);
   };
   const disc = val.discount > 0 && percentage(val.discount, val.price);
+  val.discountPrice = val.price - disc;
   const addCart = (e) => {
     e.preventDefault();
     setfirst((prev) => prev + 1);
@@ -26,6 +27,7 @@ const LowerMBodyCard = ({ val, immg }) => {
     val.order -= 1;
     dispatch(remCartaction(val));
   };
+
   return (
     <div className="flex flex-col mt-2">
       <div className="border-2 flex rounded-md">
@@ -46,8 +48,7 @@ const LowerMBodyCard = ({ val, immg }) => {
         </button>
       </div>
       <div className="flex flex-col ml-2 justify-between flex-grow pb-3 content-around space-y-2">
-        <p className="text-xs text-slate-600">fruits</p>
-        <p className="text-sm">{val.name}</p>
+        <p className="text-sm h-11">{val.name}</p>
         <p className="text-xs text-slate-600">{val.amount}</p>
         <p className="text-xs text-slate-600">
           By <span className="text-xs text-lime-800">{val.brand} </span>
@@ -55,7 +56,7 @@ const LowerMBodyCard = ({ val, immg }) => {
         <p className="text-sm text-lime-700">
           {disc > 0 ? (
             <>
-              ${(val.price - disc).toFixed(2)}
+              ${val.discountPrice.toFixed(2)}
               <span
                 className={
                   val.price <= 0
@@ -72,7 +73,7 @@ const LowerMBodyCard = ({ val, immg }) => {
         </p>
       </div>
       <div>
-        {first === 0 ? (
+        {first == 0 ? (
           <div
             className="flex justify-center bg-lime-500 p-1 items-center"
             onClick={(e) => addCart(e)}
