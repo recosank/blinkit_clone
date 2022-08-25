@@ -21,7 +21,6 @@ export default async (req, res) => {
           },
           { new: true, findAndModify: false }
         );
-
         res.status(200).json({ message: "added successfully" });
       } else if (Ind >= 0 && cartItem.order == 0) {
         await userDatadb.findOneAndUpdate(
@@ -37,7 +36,6 @@ export default async (req, res) => {
 
         res.status(200).json({ message: "removed successfully" });
       } else {
-        console.log("update");
         await userDatadb.updateOne(
           { _id: userId, "cart._id": cartItem._id },
           { $set: { "cart.$.order": cartItem.order } }
@@ -49,16 +47,3 @@ export default async (req, res) => {
     }
   }
 };
-
-//else {
-//  try {
-//    auth(req, res);
-//    const { _id } = req.body;
-//    await dbConnect();
-//    const { userId } = req;
-//    let cartlist = await userDatadb.findById(userId);
-//  } catch (err) {
-//    console.log(err);
-//  }
-//}
-//};

@@ -1,9 +1,13 @@
 import Image from "next/image";
-import straw from "../public/Images/straw.jpg";
+import { useRouter } from "next/router";
 
 const UpperMBodyCard = ({ val, immg }) => {
+  const router = useRouter();
   return (
-    <div className="h-32 rounded-lg w-16 ">
+    <div
+      className="h-32 rounded-lg w-16"
+      onClick={(e) => router.push(`cn/${val._id}/itc/${val.subCato[0]}`)}
+    >
       <Image
         src={`data:image/png;base64,${immg}`}
         className="object-contain"

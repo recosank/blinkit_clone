@@ -17,8 +17,6 @@ export default async (req, res) => {
       let disc;
       const formp = new formidable.IncomingForm();
       formp.parse(req, async (err, fields, files) => {
-        console.log(files);
-        console.log(fields);
         const { title, cato, discount } = fields;
         const arr = cato.split(",");
         let oldPath = files.cover.filepath;

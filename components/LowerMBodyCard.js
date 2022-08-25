@@ -1,9 +1,11 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 import { addCartaction, remCartaction } from "../redux/actions";
 
 const LowerMBodyCard = ({ val, immg }) => {
+  const router = useRouter();
   let { cart } = useSelector((state) => state.userReducer);
   const cartInd = cart.findIndex((i) => i._id === val._id);
   let init = cartInd >= 0 ? cart[cartInd].order : 0;
@@ -29,7 +31,10 @@ const LowerMBodyCard = ({ val, immg }) => {
   };
 
   return (
-    <div className="flex flex-col mt-2">
+    <div
+      className="flex flex-col mt-2"
+      onClick={(e) => router.push(`prid/${val._id}`)}
+    >
       <div className="border-2 flex rounded-md">
         <Image
           src={`data:image/png;base64,${immg}`}

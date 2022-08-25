@@ -107,7 +107,7 @@ const Catog = () => {
               </div>
             </div>
             {first.Chicken && (
-              <div className="grid grid-cols-4 scroll-ml-6 overflow-hidden">
+              <div className="grid grid-cols-4 space-y-4  scroll-ml-6 overflow-hidden">
                 <CatogCard />
                 <CatogCard />
                 <CatogCard />

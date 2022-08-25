@@ -6,11 +6,9 @@ const SECRET =
 const auth = (req, res) => {
   try {
     const token = req.cookies.token;
-
     const isCustomAuth = token.length < 500;
     let decodedData;
     decodedData = jwt.verify(token, SECRET);
-    console.log(decodedData);
     req.userId = decodedData._id;
   } catch (error) {
     console.log(error.name);
