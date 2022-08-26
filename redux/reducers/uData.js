@@ -1,10 +1,16 @@
 let init = {
   cart: [],
   tot: 0,
+  Userphone: "",
 };
 
 const userReducer = (state = init, { type, payload }) => {
   switch (type) {
+    case "addUser":
+      return {
+        ...state,
+        Userphone: payload,
+      };
     case "populateCart":
       let price = 0;
       payload.map((val) => (price = price + parseInt(val.discountPrice)));

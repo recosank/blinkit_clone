@@ -30,7 +30,7 @@ export default function Home({ catogData, fData, cData, uInfo, tDiscount }) {
         <title>Blinkit</title>
       </Head>
       <main>
-        <Header user={uInfo} />
+        <Header />
         <div
           className={`flex flex-col items-center content-center justify-center space-y-9`}
         >

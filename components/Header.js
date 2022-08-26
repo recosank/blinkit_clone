@@ -3,14 +3,15 @@ import Blinkit_logo from "../public/Images/Blinkit_logo.png";
 import { useState } from "react";
 import Link from "next/link";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import CartHeader from "./CartHeader";
+import { addUseraction } from "../redux/actions";
 
 const Header = ({ user }) => {
-  const { tot, cart } = useSelector((state) => state.userReducer);
+  const { tot, cart, Userphone } = useSelector((state) => state.userReducer);
+  const dispatch = useDispatch();
   const cartLen = cart.length;
   const [phone, setphone] = useState("");
-
   const [hash, sethash] = useState("");
   const [loctModal, setlocModal] = useState(false);
   const [userModal, setuserModal] = useState(false);
@@ -46,35 +47,23 @@ const Header = ({ user }) => {
     setopenLogin(true);
   };
   const handleOtp = () => {
-    console.log(phone);
     axios
       .post("http://localhost:3000/api/getotp", { number: phone })
       .then((res) => {
         if (res.status == 200) {
           sethash(res.data.fullHash);
-          console.log(hash);
-          console.log(res);
           setopenOtp(true);
         }
       })
       .catch((err) => console.log(err));
   };
   const handleVerifyOtp = () => {
-    console.log(hash);
-    axios
-      .post("http://localhost:3000/api/verifyotp", {
-        phone: phone,
-        otp: otp.join(""),
-        hash: hash,
-      })
-      .then((res) => {
-        if (res.status == 200) {
-          console.log(res);
-          setopenOtp(false);
-          setopenLogin(false);
-        }
-      })
-      .catch((err) => console.log(err));
+    const data = {
+      hash,
+      otp: otp.join(""),
+      phone,
+    };
+    dispatch(addUseraction(data));
   };
 
   return (
@@ -186,7 +175,7 @@ const Header = ({ user }) => {
       </div>
 
       <div className="text-md tracking-wide">
-        {user ? (
+        {Userphone.length > 0 ? (
           <div className="flex items-center justify-center">
             <p className="text-md tracking-wide">Account</p>
             {userModal ? (

@@ -22,8 +22,8 @@ const CatogCard = ({ data, immg }) => {
     //dispatch(remCartaction(val));
   };
   return (
-    <div className="flex w-56 gap-2 px-3 pb-4 pl-6 flex-col border">
-      <div className="flex justify-center">
+    <div className="flex w-56 gap-2 px-3 pb-4 z-20 pl-6 flex-col border">
+      <div className="flex justify-center z-20">
         <Image
           src={`data:image/png;base64,${immg}`}
           width="200"
