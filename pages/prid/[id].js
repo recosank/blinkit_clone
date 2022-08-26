@@ -36,8 +36,8 @@ export default ({ product }) => {
         <div className="flex flex-col h-96 border w-1/2">
           <Image src={`data:image/png;base64,${pic}`} width={45} height={350} />
         </div>
-        <div className="border w-1/2 p-3">
-          <p className="text-xl">{product.name}</p>
+        <div className="border w-1/2 p-12">
+          <p className="text-2xl font-light tracking-wide ">{product.name}</p>
         </div>
       </div>
     </div>

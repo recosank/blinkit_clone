@@ -8,16 +8,18 @@ import CatogCard from "../../../../components/CatogCard";
 export async function getStaticPaths(pr) {
   await dbConnect();
   const products = await catagorydb.find();
-  const paths = products.map((pValue) => {
+  let paths = [];
+  const pathss = products.map((pValue) => {
     const tipu = pValue.subCato.map((prod) => {
-      return {
+      paths.push({
         params: { id: prod, cnid: pValue._id.toString() },
-      };
+      });
     });
-    for (let i = 0; i < tipu.length; i++) {
-      return tipu[i];
-    }
+    //for (let i = 0; i < tipu.length; i++) {
+    //  return tipu[i];
+    //}
   });
+  console.log(paths);
   return { paths, fallback: false };
 }
 

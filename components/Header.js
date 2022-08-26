@@ -2,15 +2,29 @@ import Image from "next/image";
 import Blinkit_logo from "../public/Images/Blinkit_logo.png";
 import { useState } from "react";
 import Link from "next/link";
+import axios from "axios";
 import { useSelector } from "react-redux";
 import CartHeader from "./CartHeader";
 
 const Header = ({ user }) => {
   const { tot, cart } = useSelector((state) => state.userReducer);
   const cartLen = cart.length;
+  const [phone, setphone] = useState("");
+
+  const [hash, sethash] = useState("");
   const [loctModal, setlocModal] = useState(false);
   const [userModal, setuserModal] = useState(false);
   const [openCart, setopenCart] = useState(false);
+  const [openLogin, setopenLogin] = useState(false);
+  const [otp, setOtp] = useState(new Array(4).fill(""));
+  const [openOtp, setopenOtp] = useState(false);
+  const handleChange = (element, index) => {
+    if (isNaN(element.value)) return false;
+    setOtp([...otp.map((d, idx) => (idx === index ? element.value : d))]);
+    if (element.nextSibling) {
+      element.nextSibling.focus();
+    }
+  };
   const handleUserModal = (e) => {
     e.preventDefault();
     setuserModal((prev) => !prev);
@@ -28,6 +42,41 @@ const Header = ({ user }) => {
     e.preventDefault();
     setopenCart(false);
   };
+  const handleLogin = () => {
+    setopenLogin(true);
+  };
+  const handleOtp = () => {
+    console.log(phone);
+    axios
+      .post("http://localhost:3000/api/getotp", { number: phone })
+      .then((res) => {
+        if (res.status == 200) {
+          sethash(res.data.fullHash);
+          console.log(hash);
+          console.log(res);
+          setopenOtp(true);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+  const handleVerifyOtp = () => {
+    console.log(hash);
+    axios
+      .post("http://localhost:3000/api/verifyotp", {
+        phone: phone,
+        otp: otp.join(""),
+        hash: hash,
+      })
+      .then((res) => {
+        if (res.status == 200) {
+          console.log(res);
+          setopenOtp(false);
+          setopenLogin(false);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div className="flex justify-around bg-yellow-400 border-b-2 w-full pl-5 h-14 border-black-600 items-center">
       <Image src={Blinkit_logo} width={120} objectFit="contain" />
@@ -139,7 +188,7 @@ const Header = ({ user }) => {
       <div className="text-md tracking-wide">
         {user ? (
           <div className="flex items-center justify-center">
-            <p className="text-md tracking-wide">{user.username}</p>
+            <p className="text-md tracking-wide">Account</p>
             {userModal ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -175,9 +224,112 @@ const Header = ({ user }) => {
             )}
           </div>
         ) : (
-          <Link href="/login">
-            <a className="text-md tracking-wide">login</a>
-          </Link>
+          <>
+            <button
+              className="text-lg tracking-wide subpixel-antialiased"
+              onClick={handleLogin}
+            >
+              Login
+            </button>
+            {openLogin && (
+              <div
+                className="flex absolute inset-0 z-40 justify-center items-center align-center w-full h-screen"
+                style={{ backgroundColor: "rgba(0,0,0,0.7)" }}
+              >
+                <div
+                  className="bg-white h-96 "
+                  style={{ top: "22rem", left: "40rem", width: "30%" }}
+                >
+                  <div className="h-1/4 bg-white subpixel-antialiased text-gray-500 text-xl font-thinner text-center p-7">
+                    {openOtp && (
+                      <span
+                        onClick={(e) => setopenOtp(false)}
+                        className="absolute"
+                      >
+                        back
+                      </span>
+                    )}
+                    Phone Number Verification
+                  </div>
+                  <div
+                    className="flex justify-center rounded-tr-xl items-center align-center flex-col pt-10 bg-purple-50 h-3/4 mr-6 text-center"
+                    style={{ width: "95%" }}
+                  >
+                    <p className="w-2/4 subpixel-antialiased">
+                      {openOtp ? (
+                        <>
+                          Enter 4 digit code sent to your phone
+                          <span> +91-{phone}</span>
+                        </>
+                      ) : (
+                        "Enter your phone number to Login/Sign up"
+                      )}
+                    </p>
+                    {!openOtp ? (
+                      <div className="flex space-x-2 w-3/5 mt-9 mb-5 border bg-white p-3">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          className="w-5 h-6"
+                        >
+                          <path d="M10.5 18.75a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z" />
+                          <path
+                            fillRule="evenodd"
+                            d="M8.625.75A3.375 3.375 0 005.25 4.125v15.75a3.375 3.375 0 003.375 3.375h6.75a3.375 3.375 0 003.375-3.375V4.125A3.375 3.375 0 0015.375.75h-6.75zM7.5 4.125C7.5 3.504 8.004 3 8.625 3H9.75v.375c0 .621.504 1.125 1.125 1.125h2.25c.621 0 1.125-.504 1.125-1.125V3h1.125c.621 0 1.125.504 1.125 1.125v15.75c0 .621-.504 1.125-1.125 1.125h-6.75A1.125 1.125 0 017.5 19.875V4.125z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                        <p className="text-sm">+91-</p>
+                        <input
+                          type="text"
+                          pattern="[0-9]"
+                          value={phone}
+                          onChange={(e) => {
+                            setphone(e.target.value);
+                          }}
+                          className="text-sm spin-button-none"
+                        />
+                      </div>
+                    ) : (
+                      <div className="flex space-x-5 h-12 w-3/5 mt-9 px-4 mb-5">
+                        {otp.map((data, index) => {
+                          return (
+                            <input
+                              className="w-1/4 border-2 text-center bg-white"
+                              type="text"
+                              name="otp"
+                              maxLength="1"
+                              key={index}
+                              value={data}
+                              onChange={(e) => handleChange(e.target, index)}
+                              onFocus={(e) => e.target.select()}
+                            />
+                          );
+                        })}
+                      </div>
+                    )}
+
+                    {!openOtp ? (
+                      <button
+                        className="w-3/5 py-2 bg-purple-200 text-white font-semibold"
+                        onClick={handleOtp}
+                      >
+                        Next
+                      </button>
+                    ) : (
+                      <button
+                        className="w-3/5 py-2 bg-purple-200 text-white font-semibold"
+                        onClick={handleVerifyOtp}
+                      >
+                        Confirm
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+          </>
         )}
         <div
           className={

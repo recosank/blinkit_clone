@@ -1,4 +1,5 @@
 import dbConnect from "../lib/mongodb";
+import { useState } from "react";
 import catagorydb from "./api/models/catagoryModel";
 import discountdb from "./api/models/discountModel";
 import { useEffect } from "react";
@@ -30,7 +31,9 @@ export default function Home({ catogData, fData, cData, uInfo, tDiscount }) {
       </Head>
       <main>
         <Header user={uInfo} />
-        <div className="flex flex-col items-center content-center justify-center space-y-9">
+        <div
+          className={`flex flex-col items-center content-center justify-center space-y-9`}
+        >
           <Banner />
           <MiddleMBody data={tDiscount} />
           <UpperMBody data={catogData} />
