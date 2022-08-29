@@ -1,78 +1,52 @@
-## Example app using MongoDB
+# Blinkit
+Blinkit app is an Blinkit-clone which is a Ecommerce app where you can order daily usage items.It made with Nextjs using JWT-tokens for authentication with OTP based login system and Mongodb as a database. 
 
-[MongoDB](https://www.mongodb.com/) is a general purpose, document-based, distributed database built for modern application developers and for the cloud era. This example will show you how to connect to and use MongoDB as your backend for your Next.js app.
+## Introduction
+(***non-responsive for some screens but works fine***)App for to order whatever you want. 
 
-If you want to learn more about MongoDB, visit the following pages:
+## Usage
 
-- [MongoDB Atlas](https://mongodb.com/atlas)
-- [MongoDB Documentation](https://docs.mongodb.com/)
+* Download the project.
+* open a terminals.
+* npm install all dependancies of project.
+  ```js
+   npm i package.json
+  ```
+* To start the App. 
+  ```js
+   npm run dev
+  ```
+  
+* For setup follow the above step.
 
-## Deploy your own
+* Sign up for new account and you are good to go :) 
 
-Once you have access to the environment variables you'll need, deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+* Singn-up/Sign-in (by OTP using you number)
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-mongodb&project-name=with-mongodb&repository-name=with-mongodb&env=MONGODB_URI&envDescription=Required%20to%20connect%20the%20app%20with%20MongoDB)
+![login](https://user-images.githubusercontent.com/52545996/187271600-185102ab-9424-4688-b661-9655092ffcdb.png)
 
-## How to use
+* home 
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+![home](https://user-images.githubusercontent.com/52545996/187272893-5a5bdb76-60d7-4fd2-a560-5fb4d013e3ce.png)
 
-```bash
-npx create-next-app --example with-mongodb with-mongodb-app
-# or
-yarn create next-app --example with-mongodb with-mongodb-app
-# or
-pnpm create next-app -- --example with-mongodb with-mongodb-app
-```
+* Categories (lot's of categories and their Sub-categories to explore products)
 
-## Configuration
+![catog](https://user-images.githubusercontent.com/52545996/187271936-1a585e18-d20c-45f5-9e7f-fe092f211d88.png)
 
-### Set up a MongoDB database
+* Product Information
 
-Set up a MongoDB database either locally or with [MongoDB Atlas for free](https://mongodb.com/atlas).
+![itemInfo](https://user-images.githubusercontent.com/52545996/187271906-cca3ebfe-227b-4d84-afe5-89275e763c0f.png)
 
-### Set up environment variables
+* Cart (user can remove and add more item directly from cart)
 
-Copy the `env.local.example` file in this directory to `.env.local` (which will be ignored by Git):
+![cart](https://user-images.githubusercontent.com/52545996/187271943-e58ecda2-15a6-492a-bd37-1e2da8b66055.png)
 
-```bash
-cp .env.local.example .env.local
-```
+* Everday Offers on different special products for users
 
-Set each variable on `.env.local`:
+![today](https://user-images.githubusercontent.com/52545996/187273142-1751a0a8-662c-4906-a19f-bcba7214d0d7.png)
 
-- `MONGODB_URI` - Your MongoDB connection string. If you are using [MongoDB Atlas](https://mongodb.com/atlas) you can find this by clicking the "Connect" button for your cluster.
+* Bank Offers (lot's of bank based deals to save money)
 
-### Run Next.js in development mode
+![bank](https://user-images.githubusercontent.com/52545996/187271950-b1c132b3-f7e1-4b7f-8c42-a670527755e1.png)
 
-```bash
-npm install
-npm run dev
 
-# or
-
-yarn install
-yarn dev
-```
-
-Your app should be up and running on [http://localhost:3000](http://localhost:3000)! If it doesn't work, post on [GitHub discussions](https://github.com/vercel/next.js/discussions).
-
-You will either see a message stating "You are connected to MongoDB" or "You are NOT connected to MongoDB". Ensure that you have provided the correct `MONGODB_URI` environment variable.
-
-When you are successfully connected, you can refer to the [MongoDB Node.js Driver docs](https://mongodb.github.io/node-mongodb-native/3.4/tutorials/collections/) for further instructions on how to query your database.
-
-## Deploy on Vercel
-
-You can deploy this app to the cloud with [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
-
-#### Deploy Your Local Project
-
-To deploy your local project to Vercel, push it to GitHub/GitLab/Bitbucket and [import to Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example).
-
-**Important**: When you import your project on Vercel, make sure to click on **Environment Variables** and set them to match your `.env.local` file.
-
-#### Deploy from Our Template
-
-Alternatively, you can deploy using our template by clicking on the Deploy button below.
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-mongodb&project-name=with-mongodb&repository-name=with-mongodb&env=MONGODB_URI,MONGODB_DB&envDescription=Required%20to%20connect%20the%20app%20with%20MongoDB)
