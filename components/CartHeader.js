@@ -1,7 +1,7 @@
 import React from "react";
+import Image from "next/image";
 import CartCard from "./CartCard";
 import dog from "../public/Images/dog.jpg";
-import Image from "next/image";
 
 const CartHeader = ({ items, close, tot }) => {
   return (
@@ -60,8 +60,24 @@ const CartHeader = ({ items, close, tot }) => {
               return <CartCard val={val} immg={i} key={ind} />;
             })}
           </div>
-          <div className="bg-lime-500 p-5 z-50 w-full">
-            <button className="">process payment of {tot.toFixed(2)}</button>
+          <div className="bg-lime-500 flex jjustify-center items-center p-4 h-16 z-50 w-full">
+            <button className="text-lg text-white">
+              Process Payment of {tot.toFixed(2)}
+            </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-6 h-4 text-grey-400"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M8.25 4.5l7.5 7.5-7.5 7.5"
+              />
+            </svg>
           </div>
         </div>
       )}

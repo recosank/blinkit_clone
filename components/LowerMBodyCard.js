@@ -31,11 +31,11 @@ const LowerMBodyCard = ({ val, immg }) => {
   };
 
   return (
-    <div
-      className="flex flex-col mt-2"
-      onClick={(e) => router.push(`prid/${val._id}`)}
-    >
-      <div className="border-2 flex rounded-md">
+    <div className="flex flex-col mt-2">
+      <div
+        className="border-2 flex rounded-md"
+        onClick={(e) => router.push(`prid/${val._id}`)}
+      >
         <Image
           src={`data:image/png;base64,${immg}`}
           width={150}

@@ -1,5 +1,5 @@
-import userDatadb from "./models/userModel";
 import dbConnect from "../../lib/mongodb";
+import userDatadb from "./models/userModel";
 import auth from "../../middleware/auth";
 
 export default async (req, res) => {
@@ -33,7 +33,6 @@ export default async (req, res) => {
             },
           }
         );
-
         res.status(200).json({ message: "removed successfully" });
       } else {
         await userDatadb.updateOne(
@@ -43,7 +42,11 @@ export default async (req, res) => {
         res.status(200).json({ message: "update successfully" });
       }
     } catch (error) {
-      console.log(error);
+      res
+        .status(404)
+        .json(
+          "something went wrong plese check your information and try again"
+        );
     }
   }
 };

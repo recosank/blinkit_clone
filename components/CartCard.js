@@ -1,7 +1,5 @@
+import React, { useState } from "react";
 import Image from "next/image";
-import React from "react";
-import straw from "../public/Images/straw.jpg";
-import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addCartaction, remCartaction } from "../redux/actions";
 

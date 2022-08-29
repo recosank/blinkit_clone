@@ -1,5 +1,5 @@
-import catagorydb from "./models/catagoryModel";
 import dbConnect from "../../lib/mongodb";
+import catagorydb from "./models/catagoryModel";
 import formidable from "formidable";
 import path from "path";
 import fs from "fs";
@@ -15,8 +15,8 @@ export default async (req, res) => {
     try {
       await dbConnect();
       let cato;
-      const formp = new formidable.IncomingForm();
-      formp.parse(req, async (err, fields, files) => {
+      const formP = new formidable.IncomingForm();
+      formP.parse(req, async (err, fields, files) => {
         // if (req.headers.referer === "http://localhost:3000/") {
         const { title, subCato } = fields;
         const arr = subCato.split(",");
@@ -40,12 +40,13 @@ export default async (req, res) => {
         res.status(200).json("catogary added successfully");
       });
     } catch (error) {
-      //} else {
-      //    res.status(404).json('not allowed to post')
-      //}
-      console.log(error);
+      res
+        .status(404)
+        .json(
+          "something went wrong plese check your information and try again"
+        );
     }
   } else {
-    res.status(404).json("not allowed");
+    res.status(405).json("request method not allowed");
   }
 };

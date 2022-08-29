@@ -1,5 +1,5 @@
-import Image from "next/image";
 import React from "react";
+import Image from "next/image";
 import bnk from "../public/Images/bnk.png";
 
 const BankOfferCard = () => {

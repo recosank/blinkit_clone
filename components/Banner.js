@@ -1,6 +1,6 @@
 import React from "react";
-import pu from "../public/Images/pu.png";
 import Image from "next/image";
+import pu from "../public/Images/pu.png";
 
 const Banner = () => {
   return (

@@ -1,5 +1,5 @@
-import Image from "next/image";
 import React from "react";
+import Image from "next/image";
 import blink from "../public/Images/blink.png";
 import blin from "../public/Images/blin.jpg";
 

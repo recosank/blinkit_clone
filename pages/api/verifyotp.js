@@ -3,10 +3,9 @@ import jwt from "jsonwebtoken";
 import cookie from "cookie";
 import userDatadb from "./models/userModel";
 
-const key = "verysecretkey";
+const key = process.env.OTP_SECRET;
 
-const SECRET =
-  "asjkdfa5s4df658ar64f3a54f5425253456544@#%@%^%$^!#$%@#zbsdfbsdfbdsafgb3847tw4y8hgf";
+const SECRET = process.env.JWT_SECRET;
 
 function verifyOTP(phone, hash, otp) {
   let [hashValue, expires] = hash.split(".");
@@ -27,7 +26,6 @@ function verifyOTP(phone, hash, otp) {
 }
 
 export default async (req, res) => {
-  console.log(req.body);
   const { phone, otp, hash } = req.body;
   if (req.method === "POST") {
     try {
@@ -50,12 +48,16 @@ export default async (req, res) => {
         );
         res.status(200).json("user created successfully");
       } else {
-        res.status(404).json("otp is not correct");
+        res.status(400).json("otp is not correct");
       }
     } catch (error) {
-      console.log(error);
+      res
+        .status(404)
+        .json(
+          "something went wrong plese check your information and try again"
+        );
     }
   } else {
-    res.status(404).json("not allowed");
+    res.status(405).json("request method not allowed");
   }
 };
